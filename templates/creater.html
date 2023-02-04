@@ -8,12 +8,12 @@
 </head>
 <body>
     <h2>User form</h2>
-    <form method="post">
+    <form method="post" action="setuser/" >
         {% csrf_token %}
         <p>Name:<br> <input name="first_name" required type="text" /></p>
         <p>Last name:<br> <input name="last_name" required type="text" /></p>
         <p>Salary:<br> <input name="salary" required type="number"/></p>
-        <p>Company:<br> <input name="company" /></p>
-        <input type="submit" value="Send" />
+        <p>Company:<br> <input name="company"/></p>
+        <input type="submit" value="Send" name="button" />
 </body>
 </html>

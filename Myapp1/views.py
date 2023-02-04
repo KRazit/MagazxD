@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from Myapp1.models import Person
+from django.http import HttpResponse
+
 
 def MainPage(request):
     
@@ -9,12 +11,13 @@ def MainPage(request):
     
     return render(request, 'MainPage.html', locals())
 
-def GetPerson(request):
-    if 
-        first_name1 = request.POST.get("first_name")
-        last_name1 = request.POST.get("last_name")
-        salary1 = request.POST.get("salary")
-        company1 = request.POST.get("company",)
+def UserCreate(request):
+    return render(request, 'creater.html')
 
-        users_create = Person.objects.create(first_name = first_name1, last_name = last_name1, salary = salary1, company = company1)
-    return render(request, 'creater.html', locals())
+def SetUser(request):
+    first_name_set = request.POST.get("first_name")
+    last_name_set = request.POST.get("last_name")
+    salary_set = request.POST.get("salary")
+    company_set = request.POST.get("comapny", "Selfmade")
+    set_user = Person.objects.create(first_name = first_name_set, last_name = last_name_set, salary = salary_set, company = company_set)
+    return HttpResponse(f"""<a href="http://127.0.0.1:8000/"><h2>Succec</h2></a>""")
