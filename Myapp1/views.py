@@ -1,7 +1,14 @@
 from django.shortcuts import render
-from Myapp1.models import Person
+from .Serializers import PersonSerializer
+from .models import Person
 from django.http import HttpResponse
+from rest_framework import generics
 
+
+
+class PersonAPIview(generics.ListAPIView):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
 
 def MainPage(request):
     
