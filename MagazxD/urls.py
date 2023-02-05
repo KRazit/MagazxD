@@ -6,6 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainPage),
     path('usercreate/', UserCreate),
-    re_path(r'usercreate/setuser.', SetUser)
+    re_path('usercreate/setuser.', SetUser)
     
 ]
