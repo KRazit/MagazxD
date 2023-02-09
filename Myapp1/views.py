@@ -2,20 +2,29 @@ from django.shortcuts import render
 from .Serializers import PersonSerializer
 from .models import Person
 from django.http import HttpResponse
-from rest_framework import generics
+from rest_framework.response import Response 
+from rest_framework.views import APIView
 
 
+class PersonAPIview(APIView):
+    def get(self, request):
+        persona = Person.objects.all()
+        return Response({"posts":PersonSerializer(persona, many=True).data})
 
-class PersonAPIview(generics.ListAPIView):
-    queryset = Person.objects.all()
-    serializer_class = PersonSerializer
+
+    def post(self, request):
+        post_new = Person.objects.create(
+            first_name = request.data['first_name'],
+            last_name = request.data['last_name'],
+            salary = request.data['salary'],
+            company = request.data['company']
+        )
+        return Response({"post": PersonSerializer(post_new).data})
+
 
 def MainPage(request):
     
-
     users_info = Person.objects.all()
-    
-    
     return render(request, 'MainPage.html', locals())
 
 def UserCreate(request):
