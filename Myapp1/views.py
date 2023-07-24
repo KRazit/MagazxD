@@ -29,13 +29,17 @@ class PersonAPIDestroy(generics.RetrieveDestroyAPIView):
     serializer_class = PersonSerializer
     permission_classes = (IsAdminOrReadOnly,)
 #ApiEnd
+
 #Site
 def MainPage(request):
-    
     users_info = Person.objects.all()
+    title = "MainPage"
     return render(request, 'MainPage.html', locals())
+
 def UserCreate(request):
-    return render(request, 'creater.html')
+    title = "UserCreate"
+    return render(request, 'creater.html', locals())
+    
 def SetUser(request):
     first_name_set = request.POST.get("first_name")
     last_name_set = request.POST.get("last_name")
@@ -43,12 +47,14 @@ def SetUser(request):
     company_set = request.POST.get("comapny", "Selfmade")
     Person.objects.create(first_name = first_name_set, last_name = last_name_set, salary = salary_set, company = company_set)
     return HttpResponse(f"""<a href="http://127.0.0.1:8000/"><h2>Succec</h2></a>""")
+
 def PersonPage(request, personsid):
+    title = "Персональная страница"
     user_info = Person.objects.filter(id=personsid)
-    idis = {"id": personsid, "user_info": user_info}
+    idis = personsid
    # return HttpResponse(f"sssss {personsid}")
-    return render(request, 'PersonsPage.html', context=idis)
+    return render(request, 'PersonsPage.html', locals())
+
 def PageNotFound(request, exception):
     return HttpResponseNotFound('Ошибочка 404, Страница не найдена :(')     
-
 #SiteEnd
