@@ -4,14 +4,14 @@ from Myapp1.views import *
 from rest_framework import routers
 
 urlpatterns = [
-    path('', MainPage),
-    path('usercreate/', UserCreate),
-    path('persons/<int:personsid>/', PersonPage),
-    re_path(r'usercreate/setuser.', SetUser),
+    path('', MainPage, name='home'),
+    path('usercreate/', UserCreate, name='usercreate'),
+    path('persons/<int:personsid>/', PersonPage, name='persons'),
+    re_path(r'usercreate/setuser.', SetUser, name='setuser'),
     path('authframework/', include('rest_framework.urls')),
-    path('apiperson/', PersonAPIList.as_view()),
-    path('apiperson/<int:pk>', PersonAPIUpdate.as_view()),
-    path('apiperson/destroy/<int:pk>', PersonAPIDestroy.as_view()),
+    path('apiperson/', PersonAPIList.as_view(), name='getpersonsapi'),
+    path('apiperson/<int:pk>', PersonAPIUpdate.as_view(), name='personpageapi'),
+    path('apiperson/destroy/<int:pk>', PersonAPIDestroy.as_view(), name='deletepersonapi'),
     path('apiperson/authdjoser/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
